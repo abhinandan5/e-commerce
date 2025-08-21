@@ -1,0 +1,61 @@
+
+export const products = [
+    {
+        id: 1,
+        name: 'Running Shoes',
+        price: 99,
+        category: 'Footwear',
+        image: '/images/running-shoes.png',
+    },
+    {
+        id: 2,
+        name: 'Wireless Headphones',
+        price: 129,
+        category: 'Electronics',
+        image: '/images/headphones.png',
+    },
+    {
+        id: 3,
+        name: 'Backpack',
+        price: 129,
+        category: 'Accessories',
+        image: '/images/backpack.png',
+    },
+    {
+        id: 4,
+        name: 'Smartwatch',
+        price: 249,
+        category: 'Electronics',
+        image: '/images/smartwatch.png',
+    },
+    {
+        id: 5,
+        name: 'Sunglasses',
+        price: 149,
+        category: 'Accessories',
+        image: '/images/sunglasses.png',
+    },
+    {
+        id: 6,
+        name: 'Digital Camera',
+        price: 499,
+        category: 'Electronics',
+        image: '/images/camera.png',
+    },
+    {
+        id: 7,
+        name: 'T-shirt',
+        price: 29,
+        category: 'Clothing',
+        image: '/images/t-shirt.png',
+    },
+    {
+        id: 8,
+        name: 'Smartphone',
+        price: 699,
+        category: 'Electronics',
+        image: '/images/smartphone.png',
+        rating: 5,
+        description: 'Lorem ipsum dolor amet, conssectetur euisagend.',
+    },
+];
