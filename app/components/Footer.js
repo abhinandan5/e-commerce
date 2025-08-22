@@ -2,7 +2,7 @@ import { Facebook, Twitter, Instagram } from 'lucide-react';
 
 const Footer = () => {
     return (
-        <footer className="bg-primary text-white mt-auto">
+        <footer className="bg-blue-600 text-white mt-auto">
             <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-4 py-8">
                 {/* Column 1: Filters/Brand */}
                 <div>
