@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Search, ShoppingCart } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useCart } from '../context/CartContext';
 import CartModal from './CartModal';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
@@ -15,7 +16,6 @@ const Header = () => {
     const pathname = usePathname();
     const { replace } = useRouter();
 
-    // State for the search input
     const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
 
     // Debounce effect to avoid updating URL on every keystroke
@@ -27,11 +27,10 @@ const Header = () => {
             } else {
                 params.delete('search');
             }
-            // Only push to router if we are on the home page
             if (pathname === '/') {
                 replace(`${pathname}?${params.toString()}`);
             }
-        }, 300); // 300ms delay
+        }, 300);
 
         return () => clearTimeout(handler);
     }, [searchTerm, searchParams, pathname, replace]);
@@ -41,10 +40,10 @@ const Header = () => {
             <header className="bg-blue-600 text-white shadow-md mb-4 md:mb-8 sticky top-0 z-30">
                 <div className="container mx-auto flex items-center justify-between p-4">
 
-                    <a href="/" className="flex items-center gap-3">
+                    <Link href="/" className="flex items-center gap-3">
                         <Image src="/images/logo.webp" alt="Logo" width={40} height={40} priority className="rounded-full" />
                         <span className="text-2xl font-bold hidden sm:inline">ShopSphere</span>
-                    </a>
+                    </Link>
 
                     <div className="relative flex-grow border-b border-2 rounded-lg max-w-lg mx-4">
                         <input

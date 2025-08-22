@@ -34,8 +34,7 @@ export default function ProductDetailPage({ params }) {
                 <p className="text-3xl font-semibold text-primary mb-6">${product.price}</p>
                 <p className="text-gray-700 mb-8">{product.description || 'No description available.'}</p>
 
-                {/* Quantity Selector - For now, we add one at a time */}
-
+                {/* Quantity Selector */}
                 <button
                     onClick={() => addToCart(product)}
                     className="w-full md:w-auto bg-primary text-white px-8 py-3 rounded-md hover:bg-primary-dark transition-colors text-lg"

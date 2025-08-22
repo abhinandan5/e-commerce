@@ -8,7 +8,6 @@ const CartModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
-        // Backdrop
         <div
             className="fixed inset-0 bg-transparent bg-opacity-50 z-40 flex justify-end"
             onClick={onClose}

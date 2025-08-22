@@ -56,7 +56,6 @@ const ProductCard = ({ product }) => {
                 )}
 
                 <div className="mt-auto">
-                    {/* Conditionally render button or quantity controls */}
                     {quantityInCart === 0 ? (
                         <button
                             onClick={() => addToCart(product)}
