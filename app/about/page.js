@@ -8,7 +8,7 @@ const AboutPage = () => {
 
             <h2 className="text-2xl font-bold text-gray-800 mb-3">Our Story</h2>
             <p className="text-gray-600 mb-6">
-                Founded in 2025, ShopSphere started as a small project fueled by a passion for technology and design. We saw a need for an e-commerce platform that not only sold products but also told a story. We believe that every item, whether it's a new smartphone or a simple t-shirt, is a part of your personal journey. We've grown since our humble beginnings, but our core values of quality, customer satisfaction, and innovation remain the same.
+                Founded in 2025, ShopSphere started as a small project fueled by a passion for technology and design. We saw a need for an e-commerce platform that not only sold products but also told a story. We believe that every item, whether it&apos;s a new smartphone or a simple t-shirt, is a part of your personal journey. We&apos;ve grown since our humble beginnings, but our core values of quality, customer satisfaction, and innovation remain the same.
             </p>
 
             <h2 className="text-2xl font-bold text-gray-800 mb-3">Why Shop With Us?</h2>
