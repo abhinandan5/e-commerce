@@ -1,9 +1,10 @@
-'use client'; // This is required for using hooks
+'use client';
 
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation'; // Import useSearchParams
 import Sidebar from './components/Sidebar';
 import ProductGrid from './components/ProductGrid';
-import { products as allProducts } from './data/products'; // Import our mock data
+import { products as allProducts } from './data/products';
 
 export default function Home() {
   const [filteredProducts, setFilteredProducts] = useState(allProducts);
@@ -12,19 +13,29 @@ export default function Home() {
     price: 1000,
   });
 
+  const searchParams = useSearchParams(); // Get URL search params
+
   useEffect(() => {
     let tempProducts = [...allProducts];
+    const searchTerm = searchParams.get('search')?.toLowerCase() || '';
 
-    // Filter by category
+    // Filter by search term first
+    if (searchTerm) {
+      tempProducts = tempProducts.filter(p =>
+        p.name.toLowerCase().includes(searchTerm)
+      );
+    }
+
+    // Then, filter by category
     if (filters.category !== 'All') {
       tempProducts = tempProducts.filter(p => p.category === filters.category);
     }
 
-    // Filter by price
+    // Finally, filter by price
     tempProducts = tempProducts.filter(p => p.price <= filters.price);
 
     setFilteredProducts(tempProducts);
-  }, [filters]); // Re-run the effect when filters change
+  }, [filters, searchParams]); // Re-run when filters OR search params change
 
   const handleFilterChange = (filterName, filterValue) => {
     setFilters(prevFilters => ({
@@ -40,3 +51,4 @@ export default function Home() {
     </div>
   );
 }
+

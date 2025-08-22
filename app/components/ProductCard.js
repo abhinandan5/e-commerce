@@ -4,12 +4,15 @@ import Image from 'next/image';
 import { Star } from 'lucide-react';
 import Link from 'next/link';
 import { useCart } from '../context/CartContext';
+import { Plus, Minus } from 'lucide-react';
 
 const ProductCard = ({ product }) => {
-    const { addToCart } = useCart();
+    const { cartItems, addToCart, updateQuantity } = useCart();
+    const itemInCart = cartItems.find(item => item.id === product.id);
+    const quantityInCart = itemInCart ? itemInCart.quantity : 0;
 
     const handleAddToCart = (e) => {
-        e.stopPropagation(); // Prevent the link from navigating when button is clicked
+        e.stopPropagation();
         addToCart(product);
     };
 
@@ -53,14 +56,33 @@ const ProductCard = ({ product }) => {
                 )}
 
                 <div className="mt-auto">
-                    {/* Add to Cart Button */}
-                    <button
-                        onClick={handleAddToCart}
-                        className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-primary-dark transition-colors"
-                    >
-                        Add to Cart
-                    </button>
+                    {/* Conditionally render button or quantity controls */}
+                    {quantityInCart === 0 ? (
+                        <button
+                            onClick={() => addToCart(product)}
+                            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-primary-dark transition-colors"
+                        >
+                            Add to Cart
+                        </button>
+                    ) : (
+                        <div className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-primary-dark transition-colors flex items-center justify-center gap-8">
+                            <button
+                                onClick={() => updateQuantity(product.id, -1)}
+                                className="border rounded-full p-2 hover:bg-gray-100 transition-colors"
+                            >
+                                <Minus size={16} />
+                            </button>
+                            <span className="font-bold text-lg">{quantityInCart}</span>
+                            <button
+                                onClick={() => updateQuantity(product.id, 1)}
+                                className="border rounded-full p-2 hover:bg-gray-100 transition-colors"
+                            >
+                                <Plus size={16} />
+                            </button>
+                        </div>
+                    )}
                 </div>
+
             </div>
         </div>
     );

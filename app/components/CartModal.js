@@ -1,9 +1,9 @@
 import { useCart } from '../context/CartContext';
 import Image from 'next/image';
-import { X } from 'lucide-react';
+import { X, Plus, Minus } from 'lucide-react';
 
 const CartModal = ({ isOpen, onClose }) => {
-    const { cartItems, removeFromCart, cartTotal } = useCart();
+    const { cartItems, removeFromCart, cartTotal, updateQuantity } = useCart();
 
     if (!isOpen) return null;
 
@@ -15,47 +15,54 @@ const CartModal = ({ isOpen, onClose }) => {
         >
             {/* Modal Sliding Panel */}
             <div
-                className="w-full max-w-md h-3/4 bg-white shadow-lg z-50 flex flex-col transform transition-transform duration-300 ease-in-out"
-                style={{ transform: isOpen ? 'translateX(0)' : 'translateX(100%)' }}
+                className="w-full max-w-md h-full bg-white shadow-lg z-50 flex flex-col"
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Header */}
                 <div className="flex justify-between items-center p-4 border-b">
                     <h2 className="text-xl font-semibold">Shopping Cart</h2>
-                    <button onClick={onClose} className="text-gray-500 hover:text-gray-800"><X size={24} /></button>
+                    <button onClick={onClose}><X size={24} /></button>
                 </div>
 
-                {/* Cart Items */}
                 <div className="flex-grow overflow-y-auto p-4">
                     {cartItems.length === 0 ? (
-                        <p className="text-gray-500 text-center mt-4">Your cart is empty.</p>
+                        <p className="text-gray-500">Your cart is empty.</p>
                     ) : (
-                        <ul className="divide-y divide-gray-200">
+                        <ul className="divide-y">
                             {cartItems.map(item => (
                                 <li key={item.id} className="flex items-center py-4">
-                                    <Image src={item.image} alt={item.name} width={64} height={64} className="rounded-md object-contain border p-1" />
+                                    <Image src={item.image} alt={item.name} width={64} height={64} className="rounded-md object-contain" />
                                     <div className="ml-4 flex-grow">
                                         <p className="font-semibold">{item.name}</p>
-                                        <p className="text-sm text-gray-500">{item.quantity} x ${item.price}</p>
+                                        {/* NEW: Quantity Controls */}
+                                        <div className="flex items-center mt-1">
+                                            <button onClick={() => updateQuantity(item.id, -1)} className="border rounded-md p-1 hover:bg-gray-100">
+                                                <Minus size={16} />
+                                            </button>
+                                            <span className="px-3">{item.quantity}</span>
+                                            <button onClick={() => updateQuantity(item.id, 1)} className="border rounded-md p-1 hover:bg-gray-100">
+                                                <Plus size={16} />
+                                            </button>
+                                        </div>
                                     </div>
-                                    <p className="font-semibold">${(item.quantity * item.price).toFixed(2)}</p>
-                                    <button onClick={() => removeFromCart(item.id)} className="ml-4 text-red-500 hover:text-red-700">
-                                        <X size={20} />
-                                    </button>
+                                    <div className="text-right">
+                                        <p className="font-semibold">${(item.price * item.quantity).toFixed(2)}</p>
+                                        <button onClick={() => removeFromCart(item.id)} className="text-xs text-red-500 hover:underline">
+                                            Remove
+                                        </button>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
                     )}
                 </div>
 
-                {/* Footer with Subtotal */}
                 <div className="p-4 border-t">
                     <div className="flex justify-between items-center font-bold text-lg mb-4">
                         <span>Subtotal:</span>
                         <span>${cartTotal.toFixed(2)}</span>
                     </div>
-                    <button className="w-full bg-primary text-white py-3 rounded-md hover:bg-primary-dark transition-colors">
-                        Proceed to Checkout
+                    <button className="w-full bg-primary text-white py-3 rounded-md hover:bg-primary-dark">
+                        Checkout
                     </button>
                 </div>
             </div>
