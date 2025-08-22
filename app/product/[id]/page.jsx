@@ -1,11 +1,14 @@
 'use client';
 
+import { useParams } from 'next/navigation';
 import { products } from '../../data/products';
 import Image from 'next/image';
 import { useCart } from '../../context/CartContext';
 
-export default function ProductDetailPage({ params }) {
+export default function ProductDetailPage() {
     const { addToCart } = useCart();
+    const params = useParams();
+
     const product = products.find((p) => p.id === parseInt(params.id));
 
     if (!product) {

@@ -11,6 +11,11 @@ import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 const Header = () => {
     const { cartCount } = useCart();
     const [isCartOpen, setIsCartOpen] = useState(false);
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
 
     const searchParams = useSearchParams();
     const pathname = usePathname();
@@ -61,7 +66,7 @@ const Header = () => {
                     >
                         <ShoppingCart size={24} />
                         <span>Cart</span>
-                        {cartCount > 0 && (
+                        {isClient && cartCount > 0 && (
                             <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                                 {cartCount}
                             </span>

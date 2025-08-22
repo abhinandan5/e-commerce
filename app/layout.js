@@ -3,6 +3,7 @@ import './globals.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { CartProvider } from './context/CartContext';
+import { Suspense } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -12,11 +13,15 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const HeaderFallback = () => <header className="bg-primary" style={{ height: '80px' }}></header>;
+
   return (
     <html lang="en">
       <body className={`${inter.className} flex flex-col min-h-screen`}>
         <CartProvider>
-          <Header />
+          <Suspense fallback={<HeaderFallback />}>
+            <Header />
+          </Suspense>
           <main className="flex-grow container mx-auto p-4">{children}</main>
           <Footer />
         </CartProvider>
